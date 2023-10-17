@@ -1,5 +1,7 @@
 // imports
+require('dotenv').config();
 const express = require('express');
+const port = process.env.PORT || 8000;
 
 // express app
 const app = express();
@@ -10,6 +12,6 @@ app.get('/', (req, res) => {
 });
 
 // listen for request
-app.listen(4000, () => {
-  console.log('app listening on port 4000');
+app.listen(port, () => {
+  console.log('app listening on port', port);
 });
