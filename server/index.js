@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const port = process.env.PORT || 8000;
 const blogRoutes = require('./routes/blogRoutes');
 
@@ -10,6 +11,7 @@ const app = express();
 
 // middlewares
 app.use(express.json());
+app.use(cors());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
