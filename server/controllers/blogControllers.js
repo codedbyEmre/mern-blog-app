@@ -43,4 +43,48 @@ const createBlog = async (req, res) => {
   }
 };
 
-module.exports = { getBlogs, getBlog, createBlog };
+// update a blog
+const updateBlog = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: 'There is no such blog!' });
+    }
+
+    const blog = await Blog.findByIdAndUpdate({ _id: id }, { ...req.body });
+
+    if (!blog) {
+      return res.status(404).json({ error: 'There is no such blog!' });
+    }
+
+    const updatedBlog = await Blog.findById(id);
+
+    res.status(200).json(updatedBlog);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// delete a blog
+const deleteBlog = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: 'There is no such blog!' });
+    }
+
+    const blog = await Blog.findByIdAndDelete({ _id: id });
+
+    if (!blog) {
+      return res.status(404).json({ error: 'There is no such blog!' });
+    }
+
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { getBlogs, getBlog, createBlog, updateBlog, deleteBlog };

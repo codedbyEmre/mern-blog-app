@@ -1,6 +1,6 @@
 // imports
 const express = require('express');
-const { getBlogs, getBlog, createBlog } = require('../controllers/blogControllers');
+const { getBlogs, getBlog, createBlog, updateBlog, deleteBlog } = require('../controllers/blogControllers');
 
 const router = express.Router();
 
@@ -14,13 +14,9 @@ router.get('/:id', getBlog);
 router.post('/', createBlog);
 
 // UPDATE a blog
-router.patch('/:id', (req, res) => {
-  res.json({ message: 'UPDATE a blog!' });
-});
+router.patch('/:id', updateBlog);
 
 // DELETE a blog
-router.delete('/:id', (req, res) => {
-  res.json({ message: 'DELETE a blog!' });
-});
+router.delete('/:id', deleteBlog);
 
 module.exports = router;
